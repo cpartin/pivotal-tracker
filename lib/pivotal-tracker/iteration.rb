@@ -13,13 +13,8 @@ module PivotalTracker
         array.first if array
       end
 
-      def done(project)
-        array = parse(Client.connection["projects/#{project.id}/iterations/done"].get)
-        array.first if array
-      end
-
-      def all_done(project)
-        parse(Client.connection["projects/#{project.id}/iterations/done"].get)
+      def done(project, weeks = 1)
+        parse(Client.connection["projects/#{project.id}/iterations/done?offset=-#{weeks}"].get)
       end
 
       def backlog(project)
